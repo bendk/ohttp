@@ -471,17 +471,6 @@ mod nss {
             panic!("It looks like NSS is not built. Please run `libs/verify-[platform]-environment.sh` in application-services first!");
         }
 
-        let lib_dir = nss_dir.join("lib");
-        println!(
-            "cargo:rustc-link-search=native={}",
-            lib_dir.to_string_lossy()
-        );
-
-        // For app_svc builds, we use static linking of NSS.
-        let use_static_softoken = true;
-        let use_static_nspr = true;
-        static_link(&lib_dir, use_static_softoken, use_static_nspr);
-
         let include_dir = nss_dir.join("include");
         println!("cargo:include={}", include_dir.to_string_lossy());
 
